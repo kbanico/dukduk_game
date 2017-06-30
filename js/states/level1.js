@@ -121,7 +121,7 @@ var Level1 = {
         
         //add the hut
         this.hut = this.game.add.sprite(this.game.world.x +1200,this.game.world.centerY-340,"hut")
-        this.hut.scale.setTo(.5);
+        this.hut.scale.setTo(.45);
         this.game.physics.arcade.enable(this.hut)
         this.hut.body.allowGravity = false;
         
