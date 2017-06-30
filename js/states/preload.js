@@ -26,6 +26,11 @@ var PreloadState = {
           
         this.game.load.audio("drill","assets/sounds/drill.ogg");
         this.game.load.audio("oh_yeah","assets/sounds/oh_yeah.ogg");
+        this.game.load.audio("blue","assets/sounds/blue.ogg");
+        this.game.load.audio("brown","assets/sounds/brown.ogg");
+        this.game.load.audio("green","assets/sounds/green.ogg");
+        this.game.load.audio("red","assets/sounds/red.ogg");
+        this.game.load.audio("pink","assets/sounds/pink.ogg");
         
         
     },
