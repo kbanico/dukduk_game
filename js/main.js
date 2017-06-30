@@ -31,7 +31,7 @@ var scaleRatio = window.devicePixelRatio / 1.5;
 //move player function
 var movePlayer = function(player,speed,cursors){
    if(cursors.left.isDown){
-        player.scale.setTo(scaleRatio*-1,scaleRatio)
+        player.scale.setTo(0.5*-1,0.5)
         player.body.velocity.x = -speed
         player.animations.play("walk")
         player.facingLeft = true;
@@ -42,7 +42,7 @@ var movePlayer = function(player,speed,cursors){
    }
    else if(cursors.right.isDown ){
         player.body.velocity.x = speed
-        player.scale.setTo(scaleRatio,scaleRatio)
+        player.scale.setTo(0.5,0.5)
         player.animations.play("walk")
         if(cursors.right.isDown && cursors.up.isDown){
             player.body.velocity.y = -speed;

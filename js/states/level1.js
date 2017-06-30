@@ -57,7 +57,7 @@ var Level1 = {
         //add player
         var playerData = findObjectsByType("player",this.map,"objectsLayer");
         this.player = game.add.sprite(playerData[0].x,playerData[0].y,"player");
-        this.player.scale.setTo(scaleRatio,scaleRatio)
+        this.player.scale.setTo(.5,.5)
         this.player.anchor.setTo(0.5);
         this.game.physics.arcade.enable(this.player);
         this.player.body.collideWorldBounds = true;
@@ -99,8 +99,8 @@ var Level1 = {
             crab.frame = element.properties.frame
             
             
-            crab.scale.x = scaleRatio * .5;
-            crab.scale.y = scaleRatio * .5;
+            crab.scale.x =  .2;
+            crab.scale.y =  .2;
             
             var crabTween = this.game.add.tween(crab).to({x:crab.x + 40},1000,"Linear",true,0,-1);
             crabTween.yoyo(true,0)
@@ -112,8 +112,8 @@ var Level1 = {
         //add the pickaxe
         this.pickaxeData = findObjectsByType("pickaxe",this.map,"objectsLayer");
         this.pickaxe = this.game.add.sprite(this.pickaxeData[0].x+40,this.pickaxeData[0].y+50,"items","pick_gold.png")
-        this.pickaxe.scale.x=scaleRatio;
-        this.pickaxe.scale.y=scaleRatio;
+        this.pickaxe.scale.x=.5;
+        this.pickaxe.scale.y=.5;
         this.game.physics.arcade.enable(this.pickaxe);
         this.pickaxe.body.allowGravity = false;
         this.swingAxe = game.add.tween(this.pickaxe).to({angle: 50}, 300, Phaser.Easing.Sinusoidal.InOut, false, 0, Infinity, true);
@@ -121,7 +121,7 @@ var Level1 = {
         
         //add the hut
         this.hut = this.game.add.sprite(this.game.world.x +1200,this.game.world.centerY-340,"hut")
-        this.hut.scale.setTo(scaleRatio);
+        this.hut.scale.setTo(.5);
         this.game.physics.arcade.enable(this.hut)
         this.hut.body.allowGravity = false;
         
@@ -186,12 +186,12 @@ var Level1 = {
         pickaxe.y = player.y;
         
         if(player.facingLeft){
-            pickaxe.scale.setTo(scaleRatio * -1,scaleRatio)
+            pickaxe.scale.setTo(.5 * -1,.5)
             pickaxe.x = player.x-10;
             pickaxe.y = player.y;
         }
         if(player.facingRight){
-            pickaxe.scale.setTo(scaleRatio,scaleRatio) 
+            pickaxe.scale.setTo(.5,.5) 
             pickaxe.x = player.x+10;
             pickaxe.y = player.y;   
         }
