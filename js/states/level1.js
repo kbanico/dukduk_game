@@ -254,8 +254,9 @@ var Level1 = {
             console.log("YOYOYO")
             for(var i = 0; i < 5; i++){
                 var crab = this.game.add.sprite((i  * 50) + hut.x*0.8,hut.y,"crab");
-                crab.scale.setTo(0.5);
+                crab.scale.setTo(0.2);
                 crab.alpha = 0;
+                crab.frame = this.colorToBePicked;
                 var tween = game.add.tween(crab).to({alpha: 1},250,"Linear",false, i * 250).to({y: crab.y - 20},i * 250).start();
                 this.crabLeftOverText.text = ""
             }
