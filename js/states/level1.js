@@ -20,7 +20,7 @@ var Level1 = {
         this.crabLeftOverText = this.game.add.text(20,20,"Find " + this.crabColor+ " duk duk crabs",{font: "30px Arial", fill: "#fff"});
         this.crabLeftOverText.fixedToCamera = true;
         
-        
+        createOnScreenControls(this.player)
        
         
         
@@ -64,6 +64,7 @@ var Level1 = {
         
         this.player.animations.add("walk",[0,1,2,0,1,2],10,true)
         this.player.body.setSize(100,100,20,60)
+        this.player.customProperties = {}
         
         //follow player
         this.game.camera.follow(this.player);
@@ -111,7 +112,7 @@ var Level1 = {
         
         //add the pickaxe
         this.pickaxeData = findObjectsByType("pickaxe",this.map,"objectsLayer");
-        this.pickaxe = this.game.add.sprite(this.pickaxeData[0].x+40,this.pickaxeData[0].y+50,"items","pick_gold.png")
+        this.pickaxe = this.game.add.sprite(this.pickaxeData[0].x+40,this.pickaxeData[0].y+50,"pickaxe")
         this.pickaxe.scale.x=.5;
         this.pickaxe.scale.y=.5;
         this.game.physics.arcade.enable(this.pickaxe);
@@ -120,7 +121,7 @@ var Level1 = {
         
         
         //add the hut
-        this.hut = this.game.add.sprite(this.game.world.x +1200,this.game.world.centerY-340,"hut")
+        this.hut = this.game.add.sprite(1200,this.game.world.centerY-340,"hut")
         this.hut.scale.setTo(.45);
         this.game.physics.arcade.enable(this.hut)
         this.hut.body.allowGravity = false;
@@ -145,6 +146,21 @@ var Level1 = {
         this.frontGroup = this.game.add.group()
         this.frontGroup.add(this.player)
         this.frontGroup.add(this.pickaxe)
+        
+        this.info = game.add.sprite(game.width / 2,game.height / 2,"level1")
+        this.info.anchor.setTo(0.5)
+        this.info.alpha = 0.9
+        this.info.fixedToCamera = true;
+        this.info.inputEnabled = true;
+        this.info.events.onInputDown.add(function(){
+            this.info.visible = false;
+        },this)
+        
+        game.time.events.add(5000,function(){
+            if(this.info.visible){
+                this.info.visible = false
+            }
+        },this)
     },
     blockCollision:function(player,block){
         //console.log(block.collideUp)
@@ -153,16 +169,16 @@ var Level1 = {
         if(player.canBreakBlocks){
             
 
-            if(this.cursors.down.isDown && player.body.blocked.down){
+            if((this.cursors.down.isDown || this.player.customProperties.goDown ) && player.body.blocked.down){
                 if(block.collideUp){
                     this.destroyBlock(block)
 
                 }
-            }else if(this.cursors.right.isDown && player.body.blocked.right){
+            }else if((this.cursors.right.isDown || this.player.customProperties.goRight ) && player.body.blocked.right){
                 if(block.collideRight){
                     this.destroyBlock(block)
                 }
-            }else if(this.cursors.left.isDown && player.body.blocked.left){
+            }else if((this.cursors.left.isDown || this.player.customProperties.goLeft ) && player.body.blocked.left){
                 if(block.collideLeft){
                     this.destroyBlock(block)
                 }
@@ -253,7 +269,7 @@ var Level1 = {
             hut.body.enable = false
             console.log("YOYOYO")
             for(var i = 0; i < 5; i++){
-                var crab = this.game.add.sprite((i  * 50) + hut.x*0.8,hut.y,"crab");
+                var crab = this.game.add.sprite((i  * 50) + hut.x*0.8,hut.y+100,"crab");
                 crab.scale.setTo(0.2);
                 crab.alpha = 0;
                 crab.frame = this.colorToBePicked;
@@ -262,7 +278,7 @@ var Level1 = {
             }
             tween.onComplete.add(function(){
                 this.swingAxe.stop();
-                var goodJobSprite = game.add.sprite(this.player.x,this.player.y,"goodjob")
+                var goodJobSprite = game.add.sprite(this.player.x-100,this.player.y-100,"goodjob")
                 this.player.body.enable = false;
                 
                 game.time.events.add(2000,function(){this.game.state.start("Level2")},this)
